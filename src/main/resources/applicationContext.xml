@@ -21,8 +21,8 @@
 
     <!--配置spring创建IOC容器时要扫描的包-->
     <context:component-scan base-package="com.charles">
-        <!--配置扫描注解时，排除表现层注解，要求表现层对象必须都用Controller注解-->
-        <!--<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"></context:exclude-filter>-->
+        <!--配置扫描注解时，排除表现层注解，使spring只专注于service层和dao层，controller不需要spring处理-->
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"></context:exclude-filter>
     </context:component-scan>
 
     <!--配置spring整合mybatis的工厂类对象-->
@@ -48,7 +48,7 @@
 
     <!--配置映射文件的位置，用于让spring读取包下的类，来创建dao接口的代理实现类，同时存入ioc容器-->
     <bean id="mapperScanner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.itheima.dao"/>
+        <property name="basePackage" value="com.charles.dao"/>
     </bean>
 
     <!--配置事务管理器-->
@@ -58,19 +58,19 @@
     </bean>
 
     <!--配置事务的通知-->
-    <tx:advice id="txAdvice" transaction-manager="transactionManager">
-        <!--配置事务的属性(传播行为)-->
+    <!--<tx:advice id="txAdvice" transaction-manager="transactionManager">
+        &lt;!&ndash;配置事务的属性(传播行为)&ndash;&gt;
         <tx:attributes>
             <tx:method name="*" propagation="REQUIRED" read-only="false"/>
             <tx:method name="find*" read-only="true" propagation="SUPPORTS"/>
         </tx:attributes>
-    </tx:advice>
+    </tx:advice>-->
 
     <!--配置aop-->
-    <aop:config>
-        <!--配置通用切入点表达式-->
+    <!--<aop:config>
+        &lt;!&ndash;配置通用切入点表达式&ndash;&gt;
         <aop:pointcut id="pt1" expression="execution(* com.itheima.service.impl.*.*(..))"></aop:pointcut>
-        <!--建立切入点表达式和事务通知的关系-->
+        &lt;!&ndash;建立切入点表达式和事务通知的关系&ndash;&gt;
         <aop:advisor advice-ref="txAdvice" pointcut-ref="pt1"></aop:advisor>
-    </aop:config>
+    </aop:config>-->
 </beans>
