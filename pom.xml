@@ -196,7 +196,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.58</version>
+            <version>1.2.83</version>
         </dependency>
 
         <!--前后端分离解决跨域的jar包-->
